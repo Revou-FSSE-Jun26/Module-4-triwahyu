@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  @apply bg-concrete-100 font-display text-ink antialiased;
+}
+
+/* Focus is a 3px orange outline with a 3px gap and is never removed (design system). */
+:focus-visible {
+  outline: 3px solid theme("colors.signal.500");
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

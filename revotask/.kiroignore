@@ -1,0 +1,16 @@
+# Generated and dependency directories
+**/.venv/**
+**/venv/**
+**/__pycache__/**
+**/node_modules/**
+**/.next/**
+**/dist/**
+**/build/**
+**/coverage/**
+**/playwright-report/**
+**/test-results/**
+# Secrets and local environment files
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.template

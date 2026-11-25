@@ -1,0 +1,21 @@
+﻿services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: revotask-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: revotask
+      POSTGRES_USER: revotask
+      POSTGRES_PASSWORD: revotask_local_only
+    ports:
+      - "${POSTGRES_PORT:-5433}:5432"
+    volumes:
+      - revotask_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U revotask -d revotask"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  revotask_postgres_data:
