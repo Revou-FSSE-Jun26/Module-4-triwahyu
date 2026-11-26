@@ -1587,7 +1587,7 @@
         "tags": [
           "health"
         ],
-        "summary": "Liveness and database check used by Helipod and Postman.",
+        "summary": "Liveness and database check used by deployment monitors and Postman.",
         "parameters": [],
         "responses": {
           "200": {

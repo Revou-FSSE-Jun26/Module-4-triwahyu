@@ -13,7 +13,7 @@
 
 **Core features.** JWT authentication with protected routes; boards, columns and cards; FLOAT-ordered drag-and-drop; comments (owner-only edit and delete); notifications with a polled unread badge; card search with a 300 ms debounce; My Tasks; profile management; board analytics.
 
-**Tech stack.** Next.js (App Router), React, TypeScript, Tailwind CSS, react-hot-toast, Playwright, Vitest and React Testing Library. Flask, SQLAlchemy, Flask-Migrate, Flask-JWT-Extended, Marshmallow, PostgreSQL, python-dotenv, Gunicorn, pytest. Helipod (API), Vercel (web). Kiro and Kiro CLI as the AI tools.
+**Tech stack.** Next.js (App Router), React, TypeScript, Tailwind CSS, react-hot-toast, Playwright, Vitest and React Testing Library. Flask, SQLAlchemy, Flask-Migrate, Flask-JWT-Extended, Marshmallow, PostgreSQL, python-dotenv, Gunicorn, pytest. Vercel (API), Vercel (web). Kiro and Kiro CLI as the AI tools.
 
 **Non-functional requirements.** Security, reliability, responsiveness and accessibility, performance, and maintainability. They are specified as REQ-NFR-1 to REQ-NFR-5 below.
 
@@ -49,6 +49,7 @@ Health endpoint, shared API envelope, environment configuration, shared UI compo
 - **AC-FND-3.3** IF `DATABASE_URL` is missing, THEN startup SHALL fail; a `postgres://` or `postgresql://` URL SHALL be rewritten to `postgresql+psycopg://`.
 - **AC-FND-3.4** WHEN `CORS_ORIGINS` lists origins, THEN preflight requests from those origins SHALL succeed and others SHALL receive no CORS headers.
 - **AC-FND-3.5** WHEN the repository is inspected, THEN `.env.example` SHALL exist for both projects with placeholder values and no real `.env*` file SHALL be tracked.
+- **AC-FND-3.6** WHEN the app runs on Vercel (`VERCEL=1`), THEN the database engine SHALL open connections per request without a pool and SHALL disable psycopg server-side prepared statements; WHEN it runs elsewhere, THEN it SHALL keep a pre-pinged pool.
 
 ### REQ-FND-4 · Typed API client
 
@@ -89,7 +90,7 @@ Health endpoint, shared API envelope, environment configuration, shared UI compo
 **Story:** As a maintainer, I want automated checks so that regressions and guideline violations are caught before merge.
 
 - **AC-FND-8.1** CI SHALL run ruff, pytest (on PostgreSQL), `flask db upgrade`, ESLint, `tsc`, Vitest, `next build`, `scripts/check_guidelines.py` and `scripts/check_traceability.py`.
-- **AC-FND-8.2** The API SHALL be deployed on a public Helipod URL where `GET /api/health`, register and login succeed. _(verified manually after deploy)_
+- **AC-FND-8.2** The API SHALL be deployed on a public Vercel URL where `GET /api/health`, register and login succeed. _(verified manually after deploy)_
 - **AC-FND-8.3** The web app SHALL be deployed on a public Vercel URL connected to that API. _(verified manually after deploy)_
 
 ### REQ-E2E-1 · Kanban journey

@@ -9,7 +9,7 @@ Requirement → acceptance criteria → slice design → tasks → code or tests
 |---|---|---:|---|---|
 | REQ-FND-1 Health check | 00 Foundation | 2 | T-FND-4 | `backend/tests/test_errors.py`, `backend/tests/test_health.py` |
 | REQ-FND-2 Response envelope and error handling | 00 Foundation | 5 | T-FND-3, T-FND-5 | `backend/tests/test_errors.py`, `backend/tests/test_health.py` |
-| REQ-FND-3 Configuration from the environment | 00 Foundation | 5 | T-FND-6, T-FND-7 | `backend/tests/test_config.py` |
+| REQ-FND-3 Configuration from the environment | 00 Foundation | 6 | T-FND-6, T-FND-7 | `backend/tests/test_config.py` |
 | REQ-FND-4 Typed API client | 00 Foundation | 4 | T-FND-9 | `frontend/src/lib/apiClient.test.ts` |
 | REQ-FND-5 Error toasts | 00 Foundation | 4 | T-FND-10 | `frontend/src/hooks/useErrorHandler.test.tsx` |
 | REQ-FND-6 Shared UI components | 00 Foundation | 4 | T-FND-11 | `frontend/src/components/shared/BaseButton.test.tsx`, `frontend/src/components/shared/shared.test.tsx` |
@@ -69,4 +69,4 @@ Requirement → acceptance criteria → slice design → tasks → code or tests
 | REQ-ANL-4 Access | 06 Analytics Dashboard | 1 | T-ANL-4 | `backend/tests/test_analytics.py` |
 | REQ-ANL-5 Analytics dialog | 06 Analytics Dashboard | 2 | T-ANL-5 | `frontend/src/components/board/AnalyticsModal.tsx` |
 
-**61 requirements, 184 acceptance criteria.**
+**61 requirements, 185 acceptance criteria.**

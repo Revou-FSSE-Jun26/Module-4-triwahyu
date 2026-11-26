@@ -45,13 +45,13 @@ Legend: `[x]` done and verified locally, `[ ]` pending (needs your accounts or l
 - [x] **T-FND-13** Playwright journey (8 steps, drag, reload persistence) and mobile layout spec. _(REQ-E2E-1, REQ-NFR-3)_ → `frontend/e2e/`
 - [x] **T-FND-14** `check_guidelines.py`, `check_traceability.py`, `build_specs.py`, `export_openapi.py`. _(REQ-NFR-5)_ → `scripts/`
 - [x] **T-FND-15** CI pipeline. _(REQ-FND-8)_ → `.github/workflows/ci.yml`
-- [x] **T-FND-16** Deployment configuration and guide. _(REQ-FND-8)_ → `backend/railway.json`, `backend/wsgi.py`, `docs/deployment.md`
+- [x] **T-FND-16** Deployment configuration and guide. _(REQ-FND-8)_ → `backend/wsgi.py`, `backend/.vercelignore`, `backend/app/config.py`, `docs/deployment.md`
 - [x] **T-FND-17** README with workflow summary, run and test instructions. _(REQ-FND-8)_ → `README.md`
 - [x] **T-FND-18** Violation report and before/after comparison. _(REQ-NFR-5)_ → `guidelines/violation-report.md`, `guidelines/before-after-comparison.md`
 - [x] **T-FND-22** Security baseline: scrypt hashing, expiring JWTs, authorization in services. _(REQ-NFR-1)_ → `backend/app/blueprints/auth/service.py`, `boards/service.py::require_member`, `common/auth.py`
 - [x] **T-FND-23** Reliability: soft delete with one-timestamp cascade and optimistic updates with rollback. _(REQ-NFR-2)_ → `backend/app/blueprints/columns/service.py::soft_delete_columns`, `frontend/src/lib/boardState.ts`
 - [x] **T-FND-24** Performance: fixed-query board detail and bounded list endpoints. _(REQ-NFR-4)_ → `backend/app/blueprints/boards/service.py::get_board_detail`, `notifications/schema.py`, `tests/test_boards.py`
-- [ ] **T-FND-19** Deploy the API to Helipod and verify health, register and login from Postman. _(REQ-FND-8)_ → owner action, see `docs/deployment.md`
+- [ ] **T-FND-19** Deploy the API to Vercel and verify health, register and login from Postman. _(REQ-FND-8)_ → owner action, see `docs/deployment.md`
 - [ ] **T-FND-20** Deploy the web app to Vercel and run Playwright against the live URL. _(REQ-FND-8, REQ-E2E-1)_ → owner action
 - [ ] **T-FND-21** Capture live screenshots and the production Playwright report. _(REQ-FND-8)_ → owner action, `docs/screenshots/`, `frontend/e2e-report/production/`
 

@@ -4,5 +4,5 @@ from . import health_bp, service
 
 @health_bp.get("/health")
 def health():
-    """Liveness and database check used by Helipod and Postman."""
+    """Liveness and database check used by deployment monitors and Postman."""
     return ok(service.check_database())

@@ -1,7 +1,7 @@
 """Run the full API sequence against any deployment and print a pass/fail table.
 
   python scripts/api_smoke.py http://127.0.0.1:5000/api
-  python scripts/api_smoke.py https://<helipod-api-host>/api
+  python scripts/api_smoke.py https://<api-project>.vercel.app/api
 
 Registers a fresh user each run, so it is safe to repeat. Exit code 1 if any step fails. Uses only the standard library.
 """

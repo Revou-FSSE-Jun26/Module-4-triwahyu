@@ -2,7 +2,7 @@ import { defineConfig, devices } from "@playwright/test";
 
 /**
  * E2E suite. Point it at production with:
- *   PLAYWRIGHT_BASE_URL=https://<app>.vercel.app E2E_API_BASE_URL=https://<helipod-api-host>/api npx playwright test
+ *   PLAYWRIGHT_BASE_URL=https://<app>.vercel.app E2E_API_BASE_URL=https://<api-project>.vercel.app/api npx playwright test
  * Set PLAYWRIGHT_HTML_REPORT=e2e-report/production to write the report to a committed folder.
  */
 export default defineConfig({

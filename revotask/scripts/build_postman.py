@@ -1,7 +1,7 @@
 """Generate docs/postman/revotask.postman_collection.json from scripts/api_steps.py.
 
 Run order matters (variables like {{boardId}} are saved by earlier requests), so use the Collection Runner.
-Set the `baseUrl` collection variable to <api origin>/api, for example https://<helipod-api-host>/api.
+Set the `baseUrl` collection variable to <api origin>/api, for example https://<api-project>.vercel.app/api.
 """
 
 from __future__ import annotations

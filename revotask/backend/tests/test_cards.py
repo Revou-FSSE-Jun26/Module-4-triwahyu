@@ -178,11 +178,11 @@ def test_my_tasks_lists_assigned_cards_with_board_name(client):
 def test_search_cards_by_text_within_a_board(client):
     """REQ-CARD-8: search matches title or description, case-insensitively, scoped by board."""
     admin, _, board, todo, *_ = setup_board(client)
-    make_card(admin, todo["id"], "Deploy API", description="to Helipod")
+    make_card(admin, todo["id"], "Deploy API", description="to Vercel")
     make_card(admin, todo["id"], "100% done_ish")
     find = lambda q: [c["title"] for c in admin.call("get", f"/api/cards?q={q}&board_id={board['id']}")[1]["data"]]  # noqa: E731
     assert find("deploy") == ["Deploy API"]
-    assert find("HELIPOD") == ["Deploy API"]
+    assert find("VERCEL") == ["Deploy API"]
     assert find("%25") == ["100% done_ish"]
     assert find("zzz") == []
     assert make_actor(client).call("get", f"/api/cards?q=x&board_id={board['id']}")[0] == 403

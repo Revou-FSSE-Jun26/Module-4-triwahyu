@@ -6,6 +6,7 @@ import secrets
 from datetime import timedelta
 
 from dotenv import load_dotenv
+from sqlalchemy.pool import NullPool
 
 log = logging.getLogger(__name__)
 
@@ -19,6 +20,22 @@ def normalize_database_url(url: str) -> str:
     if url.startswith("postgresql://"):
         url = "postgresql+psycopg://" + url[len("postgresql://") :]
     return url
+
+
+def engine_options(database_url: str, serverless: bool) -> dict:
+    """SQLAlchemy engine options (DB-10).
+
+    Long-running servers keep a small pool and ping connections the platform may have dropped. On serverless
+    platforms every function instance would hold its own pool and exhaust the database's connection limit, so
+    connections are opened per request (NullPool). Behind a transaction-mode pooler such as PgBouncer, psycopg 3
+    must not use server-side prepared statements, so they are switched off.
+    """
+    if not serverless:
+        return {"pool_pre_ping": True}
+    options: dict = {"poolclass": NullPool}
+    if database_url.startswith("postgresql"):
+        options["connect_args"] = {"prepare_threshold": None}
+    return options
 
 
 def split_csv(value: str) -> list[str]:
@@ -38,13 +55,14 @@ def build_config(overrides: dict | None = None) -> dict:
         "JWT_SECRET_KEY": env.get("JWT_SECRET_KEY", ""),
         "SQLALCHEMY_DATABASE_URI": normalize_database_url(env.get("DATABASE_URL", "")),
         "SQLALCHEMY_TRACK_MODIFICATIONS": False,
-        "SQLALCHEMY_ENGINE_OPTIONS": {"pool_pre_ping": True},
         "JWT_ACCESS_TOKEN_EXPIRES": timedelta(minutes=int(env.get("JWT_ACCESS_TOKEN_MINUTES", "60"))),
         "CORS_ORIGINS": split_csv(env.get("CORS_ORIGINS", "http://localhost:3000")),
         "PASSWORD_HASH_METHOD": "scrypt",
         "MAX_CONTENT_LENGTH": 1024 * 1024,
         "JSON_SORT_KEYS": False,
     }
+    # Vercel sets VERCEL=1 at build and run time.
+    config["SQLALCHEMY_ENGINE_OPTIONS"] = engine_options(config["SQLALCHEMY_DATABASE_URI"], env.get("VERCEL") == "1")
     config.update(overrides)
     _validate(config)
     return config

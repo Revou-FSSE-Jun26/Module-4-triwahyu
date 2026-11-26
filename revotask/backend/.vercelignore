@@ -1,0 +1,11 @@
+# Files that must not be uploaded with a Vercel deployment
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+tests/
+instance/
+*.db
+.env
+.env.*
+!.env.example

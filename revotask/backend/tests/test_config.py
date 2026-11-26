@@ -1,14 +1,23 @@
 import pytest
+from sqlalchemy.pool import NullPool
 
 from app import create_app
-from app.config import build_config, normalize_database_url, split_csv
+from app.config import build_config, engine_options, normalize_database_url, split_csv
 
 LONG = "x" * 40
 
 
 @pytest.fixture(autouse=True)
 def clean_env(monkeypatch):
-    for key in ("APP_ENV", "SECRET_KEY", "JWT_SECRET_KEY", "DATABASE_URL", "CORS_ORIGINS", "JWT_ACCESS_TOKEN_MINUTES"):
+    for key in (
+        "APP_ENV",
+        "SECRET_KEY",
+        "JWT_SECRET_KEY",
+        "DATABASE_URL",
+        "CORS_ORIGINS",
+        "JWT_ACCESS_TOKEN_MINUTES",
+        "VERCEL",
+    ):
         monkeypatch.delenv(key, raising=False)
     monkeypatch.setattr("app.config.load_dotenv", lambda *a, **k: None)  # ignore a developer's .env
 
@@ -101,3 +110,32 @@ def test_test_suite_refuses_a_non_test_database(monkeypatch):
     assert resolve_test_database_uri().endswith("/revotask_test")
     monkeypatch.delenv("TEST_DATABASE_URL")
     assert resolve_test_database_uri() == "sqlite://"
+
+
+PG_URL = "postgresql+psycopg://u:p@host/db"
+
+
+def test_long_running_servers_keep_a_pre_pinged_pool():
+    """DB-10: the default engine options are unchanged for Gunicorn-style deployments."""
+    assert engine_options(PG_URL, serverless=False) == {"pool_pre_ping": True}
+
+
+def test_serverless_postgres_uses_no_pool_and_no_prepared_statements():
+    """DB-10: on Vercel each request opens its own connection and avoids prepared statements (poolers)."""
+    options = engine_options(PG_URL, serverless=True)
+    assert options["poolclass"] is NullPool
+    assert options["connect_args"] == {"prepare_threshold": None}
+
+
+def test_serverless_sqlite_gets_no_postgres_only_connect_args():
+    """DB-10: psycopg-only arguments are not passed to other drivers."""
+    assert engine_options("sqlite://", serverless=True) == {"poolclass": NullPool}
+
+
+def test_vercel_environment_selects_serverless_options(monkeypatch):
+    """REQ-FND-3: VERCEL=1 switches the real config; leaving it unset keeps the default."""
+    monkeypatch.setenv("DATABASE_URL", "postgresql://u:p@host/db")
+    assert build_config()["SQLALCHEMY_ENGINE_OPTIONS"] == {"pool_pre_ping": True}
+    monkeypatch.setenv("VERCEL", "1")
+    options = build_config()["SQLALCHEMY_ENGINE_OPTIONS"]
+    assert options["poolclass"] is NullPool and options["connect_args"] == {"prepare_threshold": None}

@@ -40,7 +40,7 @@ Request path in the API: `route` (auth + validate) → `service` (authorization 
 | REQ-FND-5 | all failure paths  | `hooks/useErrorHandler.ts`, `lib/toast.ts`                                                    |
 | REQ-FND-6 | all pages          | `components/shared/{BaseButton,BaseBadge,BaseModal,BaseInput,NameFormModal,ConfirmModal}.tsx` |
 | REQ-FND-7 | `flask db upgrade` | `backend/migrations/versions/0001_initial_schema.py`, `tests/test_migrations.py`              |
-| REQ-FND-8 | CI and deploy      | `.github/workflows/ci.yml`, `backend/railway.json`, `docs/deployment.md`                      |
+| REQ-FND-8 | CI and deploy      | `.github/workflows/ci.yml`, `backend/wsgi.py`, `backend/.vercelignore`, `docs/deployment.md`, `docs/adr/0004-backend-on-vercel.md`                      |
 | REQ-E2E-1 | live app           | `frontend/e2e/kanban.spec.ts`, `playwright.config.ts`                                         |
 | REQ-NFR-1 | all routes         | `blueprints/*/service.py` (`require_member`, `require_admin`), `auth/service.py`              |
 | REQ-NFR-2 | board and drag UI  | `hooks/useDragAndDrop.ts`, `lib/boardState.ts`, soft delete in services                       |

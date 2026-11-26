@@ -17,10 +17,10 @@ The checker runs 28 mechanical checks, each tied to a rule ID in `backend.md`, `
 | Checks failed | 11 | **0** |
 | Checks not applicable (code did not exist) | 6 | 0 |
 | Individual findings | 47 | **0** |
-| Backend tests (pytest) | 1 (health only) | **110** (109 pass and 1 PostgreSQL-only skip on SQLite; all 110 pass on PostgreSQL 18) |
+| Backend tests (pytest) | 1 (health only) | **114** (113 pass and 1 PostgreSQL-only skip on SQLite; all 114 pass on PostgreSQL 18, also with the Vercel serverless settings) |
 | Frontend unit tests (Vitest) | 0 | **125** |
 | Playwright tests, all asserting | 4 (2 with no assertion) | **7** (4 auth, 1 eight-step journey, 2 mobile layout) |
-| Requirements with acceptance criteria | 0 | **61** (184 criteria) |
+| Requirements with acceptance criteria | 0 | **61** (185 criteria) |
 | Traceability gate | exits 0 with zero requirements | exits 0 only when every link exists |
 
 ### Per-rule detail

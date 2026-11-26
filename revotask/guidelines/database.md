@@ -61,6 +61,6 @@ Ownership: this file owns the data layer only. HTTP, validation and secrets live
 
 ## DB-10 Normalize the connection URL for the driver
 
-**Rule:** `config.py` rewrites `postgres://` and `postgresql://` to `postgresql+psycopg://`, enables `pool_pre_ping`, and leaves TLS to the URL (`?sslmode=require` on hosted databases).
-**Rationale:** Hosted providers hand out driver-less URLs, and idle pooled connections are dropped by the platform.
-**Example:** Helipod's `postgresql://...` value works unchanged as `DATABASE_URL`.
+**Rule:** `config.py` rewrites `postgres://` and `postgresql://` to `postgresql+psycopg://`, enables `pool_pre_ping`, and leaves TLS to the URL (`?sslmode=require` on hosted databases). On serverless platforms (`VERCEL=1`) it opens a connection per request (`NullPool`) and turns off psycopg prepared statements instead.
+**Rationale:** Hosted providers hand out driver-less URLs, idle pooled connections are dropped by the platform, and a pool per serverless instance exhausts the database's connection limit.
+**Example:** A hosted provider's `postgresql://...` value works unchanged as `DATABASE_URL`; with `VERCEL=1` the engine uses `NullPool` and `prepare_threshold=None`.
