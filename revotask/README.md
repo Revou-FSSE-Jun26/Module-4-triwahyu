@@ -2,12 +2,12 @@
 
 RevoTask is a Trello-like task management application built through a disciplined, AI-driven workflow with Kiro and Kiro CLI. Users create boards, organize work into columns, move cards between stages by drag-and-drop, collaborate through comments, and track the tasks assigned to them. A Flask API and a Next.js frontend are built to be deployed separately (both on Vercel).
 
-|                |                                                                                            |
-| -------------- | ------------------------------------------------------------------------------------------ |
-| **Live API**   | _add your API URL (a Vercel project) after deploying, see [`docs/deployment.md`](docs/deployment.md)_     |
-| **Live app**   | _add your Vercel URL after deploying_                                                      |
-| **Specs**      | [`specs/`](specs/) (requirements, design, tasks, CHANGELOG, traceability)                  |
-| **Guidelines** | [`guidelines/`](guidelines/) (backend, database, frontend, violation report, before/after) |
+|                |                                                                                                                                 |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| **Live API**   | _[link_api](https://module-4-triwahyu-git-main-triwahyu.vercel.app/api/health), see [`docs/deployment.md`](docs/deployment.md)_ |
+| **Live app**   | _[link_deploy](https://module-4-triwahyu-2w11.vercel.app/login)_                                                                |
+| **Specs**      | [`specs/`](specs/) (requirements, design, tasks, CHANGELOG, traceability)                                                       |
+| **Guidelines** | [`guidelines/`](guidelines/) (backend, database, frontend, violation report, before/after)                                      |
 
 > **Status.** Everything below was built and verified locally: 114 backend tests on PostgreSQL 18 (113 plus one PostgreSQL-only test on SQLite; also passing with the Vercel serverless database settings), 125 frontend unit tests, a 7-test Playwright suite against a production build, and the migrations applied to PostgreSQL. **Not done yet, because they need your accounts:** the two Vercel deployments (API and web), the hosted database, the Postman capture, the Playwright run against the live URL, and live screenshots. [`docs/deployment.md`](docs/deployment.md) has the exact steps and a checklist.
 
