@@ -1,3 +1,23 @@
+[project]
+name = "revotask-api"
+version = "0.1.0"
+requires-python = ">=3.11"
+# Runtime dependencies only. Vercel reads this table when a pyproject.toml is present
+# and then ignores requirements.txt. Keep it in sync with the runtime part of requirements.txt
+# (tests and linting tools stay in requirements.txt).
+dependencies = [
+    "Flask>=3.1,<4.0",
+    "Flask-SQLAlchemy>=3.1,<4.0",
+    "SQLAlchemy>=2.0.30,<2.2",
+    "Flask-Migrate>=4.0,<5.0",
+    "Flask-JWT-Extended>=4.6,<5.0",
+    "Flask-Cors>=5.0,<7.0",
+    "marshmallow>=4.0,<5.0",
+    "python-dotenv>=1.0,<2.0",
+    "psycopg[binary]>=3.2,<4.0",
+    "gunicorn>=22.0,<24.0",
+]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
